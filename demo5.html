@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>移动端自适应</title>
+		<script src="js/echarts.min.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			#main{
+				width: 600px;
+				height: 500px;
+			}
+		</style>
+	</head>
+	<body>
+		<p>为了解决这个问题，ECharts 完善了组件的定位设置，并且实现了类似 CSS Media Query 的自适应能力。</p>
+		<div id="main">
+			
+		</div>
+	</body>
+	<script type="text/javascript">
+		//Media Query 提供了『随着容器尺寸改变而改变』的能力。
+		//要在 option 中设置 Media Query 须遵循如下格式：
+
+var option = {
+    baseOption: { // 这里是基本的『原子option』。
+        title: {...},
+        legend: {...},
+        series: [{...}, {...}, ...],
+        ...
+    },
+    media: [ // 这里定义了 media query 的逐条规则。
+        {
+            query: {
+            	 maxAspectRatio: 1           // 当长宽比小于1时。
+            },   // 这里写规则。
+            option: {       // 这里写此规则满足下的option。
+                 legend: {                   // legend 放在底部中间。
+                 right: 'center',
+                bottom: 0,
+                orient: 'horizontal'    // legend 横向布局。
+            },
+            series: [                   // 两个饼图左右布局。
+                {
+                    radius: [20, '50%'],
+                    center: ['50%', '30%']
+                },
+                {
+                    radius: [30, '50%'],
+                    center: ['50%', '70%']
+                }
+            ]
+            },
+        {
+            query: {
+            	  maxWidth: 500               // 当容器宽度小于 500 时。
+            },   // 第二个规则。
+            option: {       // 第二个规则对应的option。
+               legend: {
+                right: 10,              // legend 放置在右侧中间。
+                top: '15%',
+                orient: 'vertical'      // 纵向布局。
+            },
+            series: [                   // 两个饼图上下布局。
+                {
+                    radius: [20, '50%'],
+                    center: ['50%', '30%']
+                },
+                {
+                    radius: [30, '50%'],
+                    center: ['50%', '75%']
+                }
+            ]
+         },
+        {                   // 这条里没有写规则，表示『默认』，
+            option: {       // 即所有规则都不满足时，采纳这个option。
+                legend: {...},
+                ...
+            }
+        }
+    ]
+};
+		
+		/*
+		 
+		 * ECharts组件的定位和布局
+
+大部分『组件』和『系列』会遵循两种定位方式：
+
+
+left/right/top/bottom/width/height 定位方式：
+
+这六个量中，每个量都可以是『绝对值』或者『百分比』或者『位置描述』。
+
+绝对值
+
+单位是浏览器像素（px），用 number 形式书写（不写单位）。例如 {left: 23, height: 400}。
+
+百分比
+
+表示占 DOM 容器高宽的百分之多少，用 string 形式书写。例如 {right: '30%', bottom: '40%'}。
+
+位置描述
+
+可以设置 left: 'center'，表示水平居中。
+可以设置 top: 'middle'，表示垂直居中。
+这六个量的概念，和 CSS 中六个量的概念类似：
+
+left：距离 DOM 容器左边界的距离。
+right：距离 DOM 容器右边界的距离。
+top：距离 DOM 容器上边界的距离。
+bottom：距离 DOM 容器下边界的距离。
+width：宽度。
+height：高度。
+在横向，left、right、width 三个量中，只需两个量有值即可，因为任两个量可以决定组件的位置和大小，例如 left 和 right 或者 right 和 width 都可以决定组件的位置和大小。 纵向，top、bottom、height 三个量，和横向类同不赘述。
+
+
+center / radius 定位方式：
+
+center
+
+是一个数组，表示 [x, y]，其中，x、y可以是『绝对值』或者『百分比』，含义和前述相同。
+
+radius
+
+是一个数组，表示 [内半径, 外半径]，其中，内外半径可以是『绝对值』或者『百分比』，含义和前述相同。
+
+在自适应容器大小时，百分比设置是很有用的。
+
+
+横向（horizontal）和纵向（vertical）
+
+ECharts的『外观狭长』型的组件（如 legend、visualMap、dataZoom、timeline等），大多提供了『横向布局』『纵向布局』的选择。例如，在细长的移动端屏幕上，可能适合使用『纵向布局』；在PC宽屏上，可能适合使用『横向布局』。
+
+横纵向布局的设置，一般在『组件』或者『系列』的 orient 或者 layout 配置项上，设置为 'horizontal' 或者 'vertical'。
+
+
+于 ECharts2 的兼容：
+
+ECharts2 中的 x/x2/y/y2 的命名方式仍被兼容，对应于 left/right/top/bottom。但是建议写 left/right/top/bottom。
+
+位置描述中，为兼容 ECharts2，可以支持一些看起来略奇怪的设置：left: 'right'、left: 'left'、top: 'bottom'、top: 'top'。这些语句分别等效于：right: 0、left: 0、bottom: 0、top: 0，写成后者就不奇怪了。
+		 * */
+	</script>
+</html>

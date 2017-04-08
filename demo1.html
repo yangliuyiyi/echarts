@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>柱状图demo1</title>
+		<script src="js/echarts.min.js"></script>
+	</head>
+	<body>
+		<div id="echarts" style="width:600px;height:400px;margin: 0 auto;">
+			
+		</div>
+	</body>
+	<script type="text/javascript">
+		//初始化echarts实例
+		var mycharts=echarts.init(document.getElementById('echarts'));
+		//指定图标的配置项和数据
+		var option={
+			title:{
+				text:'eCharts示例'
+			},
+		    tooltip: {},
+		     legend: {
+                data:['销量']
+            },//提示做什么图是销售还是人数
+		    xAxis:{
+		    	data:["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]//横坐标下的字
+		    },
+		    yAxis: {},
+            series: [{
+                name: '销量',
+                type: 'bar',
+                data: [5, 20, 36, 10, 10, 20]
+            }]//系列:name是鼠标悬浮时提示销售和上面的legend共同作用，type类型不可改，data数据
+		};
+		//data属性值每一项都是单个数值
+		// 使用刚指定的配置项和数据显示图表。
+		mycharts.setOption(option);
+	</script>
+</html>
